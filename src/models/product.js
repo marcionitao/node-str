@@ -1,4 +1,5 @@
 // temos de criar um schema, no MongoDB o shema é criado na aplicação e não na DB
+// Esse model será usado no controller product
 "use strict";
 
 const mongoose = require('mongoose');
