@@ -15,6 +15,45 @@ exports.get = (req, res, next) => {
     });
 };
 
+// lista apenas o produto consoante o slug da pesquisa
+exports.getBySlug = (req, res, next) => {
+    Product
+    .findOne({ 
+        slug: req.params.slug, // slug deve ser igual tb na rota 'products-route'
+        active: true 
+    }, 'title description price slug tags') // apenas quero mostrar um unico dado
+    .then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send(e);
+    });
+};
+
+// lista apenas o produto consoante o id da pesquisa
+exports.getById = (req, res, next) => {
+    Product
+    .findById(req.params.id) // id deve ser igual tb na rota 'products-route'
+    .then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send(e);
+    });
+};
+
+// lista apenas o produto consoante a tag da pesquisa
+exports.getByTag = (req, res, next) => {
+    Product
+    .find({ 
+        tags: req.params.tag, // tags deve ser igual tb na rota 'products-route'
+        active: true 
+    }, 'title description price slug tags') // apenas quero mostrar um unico dado
+    .then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send(e);
+    });
+};
+
 // salva
 exports.post = (req, res, next) => {
     var product = new Product(req.body);
