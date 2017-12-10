@@ -74,14 +74,38 @@ exports.post = (req, res, next) => {
 
 // edita
 exports.put = (req, res, next) => {
-    const id = req.params.id;
-    res.status(200).send({
-        id: id,
-        item: req.body
+    Product
+    .findByIdAndUpdate(req.params.id, { // id deve ser igual tb na rota 'products-route'
+        $set: { // estes serão os dados editaveis
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price
+        }
+    })
+    .then(x => {
+        res.status(200).send({
+            message: 'Produto atualizado com sucesso'
+        });
+    }).catch(e => {
+        res.status(400).send({
+            message: 'Error ao atualizar produto',
+            data: e
+        });
     });
 };
 
 // remove
 exports.delete = (req, res, next) => {
-    res.status(200).send(req.body);
+    Product
+    .findOneAndRemove(req.params.id) // id deve ser igual tb na rota 'products-route'
+    .then(x => {
+        res.status(200).send({
+            message: 'Produto removido com sucesso'
+        });
+    }).catch(e => {
+        res.status(400).send({
+            message: 'Error ao remover produto',
+            data: e
+        });
+    });
 };
