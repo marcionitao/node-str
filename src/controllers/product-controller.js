@@ -4,6 +4,18 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
+// lista todos os produtos
+exports.get = (req, res, next) => {
+    Product
+    .find({ active: true }, 'title price slug') // apenas quero mostrar esses dados e active true
+    .then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send(e);
+    });
+};
+
+// salva
 exports.post = (req, res, next) => {
     var product = new Product(req.body);
     product
@@ -21,6 +33,7 @@ exports.post = (req, res, next) => {
 
 };
 
+// edita
 exports.put = (req, res, next) => {
     const id = req.params.id;
     res.status(200).send({
@@ -29,6 +42,7 @@ exports.put = (req, res, next) => {
     });
 };
 
+// remove
 exports.delete = (req, res, next) => {
     res.status(200).send(req.body);
 };
