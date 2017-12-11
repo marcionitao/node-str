@@ -16,6 +16,7 @@ var promise = mongoose.connect('mongodb://balta:balta@ds044787.mlab.com:44787/nd
 
 // carrega os Models
 const Product = require('./models/product');
+const Customer = require('./models/customer');
 
 // carrega as rotas
 const indexRoute = require ('./routes/index-route');
