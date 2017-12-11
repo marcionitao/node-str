@@ -1,111 +1,106 @@
 'use strict';
-
+/* jshint ignore:start */
 // para podermos usar o Model
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
 
+// para usar o repository
+const repository = require('../repositories/product-repository');
+
 // lista todos os produtos
-exports.get = (req, res, next) => {
-    Product
-    .find({ active: true }, 'title price slug') // apenas quero mostrar esses dados e active true
-    .then(data => {
+exports.get = async(req, res, next) => {
+    try {
+        const data = await repository.get();
         res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send(e);
-    });
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
+        })
+    }
 };
 
 // lista apenas o produto consoante o slug da pesquisa
-exports.getBySlug = (req, res, next) => {
-    Product
-    .findOne({ 
-        slug: req.params.slug, // slug deve ser igual tb na rota 'products-route'
-        active: true 
-    }, 'title description price slug tags') // apenas quero mostrar um unico dado
-    .then(data => {
+exports.getBySlug = async(req, res, next) => {
+    try {
+        const data = await repository.getBySlug(req.params.slug);
         res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send(e);
-    });
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
+        });
+    }
 };
 
 // lista apenas o produto consoante o id da pesquisa
-exports.getById = (req, res, next) => {
-    Product
-    .findById(req.params.id) // id deve ser igual tb na rota 'products-route'
-    .then(data => {
+exports.getById = async(req, res, next) => {
+    try {
+        const data = await repository.getById(req.params.id);
         res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send(e);
-    });
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
+        });
+    }
 };
 
 // lista apenas o produto consoante a tag da pesquisa
-exports.getByTag = (req, res, next) => {
-    Product
-    .find({ 
-        tags: req.params.tag, // tags deve ser igual tb na rota 'products-route'
-        active: true 
-    }, 'title description price slug tags') // apenas quero mostrar um unico dado
-    .then(data => {
+exports.getByTag = async(req, res, next) => {
+    try {
+        const data = await repository.getByTag(req.params.tag);
         res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send(e);
-    });
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
+        });
+    }
 };
 
 // salva
-exports.post = (req, res, next) => {
-    var product = new Product(req.body);
-    product
-    .save()
-    .then(x => {
+exports.post = async(req, res, next) => {
+    try {
+        await repository.create(req.body);
         res.status(201).send({
             message: 'Produto adicionado com sucesso'
         });
-    }).catch(e => {
-        res.status(400).send({
-            message: 'Error ao adicionar produto',
-            data: e
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
         });
-    });
-
+    }
 };
 
 // edita
-exports.put = (req, res, next) => {
-    Product
-    .findByIdAndUpdate(req.params.id, { // id deve ser igual tb na rota 'products-route'
-        $set: { // estes serão os dados editaveis
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price
-        }
-    })
-    .then(x => {
+exports.put = async(req, res, next) => {
+   try {
+        await repository.update(req.params.id, req.body);
         res.status(200).send({
             message: 'Produto atualizado com sucesso'
         });
-    }).catch(e => {
-        res.status(400).send({
-            message: 'Error ao atualizar produto',
-            data: e
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
         });
-    });
+    }
 };
 
 // remove
-exports.delete = (req, res, next) => {
-    Product
-    .findOneAndRemove(req.params.id) // id deve ser igual tb na rota 'products-route'
-    .then(x => {
+exports.delete = async(req, res, next) => {
+    try {
+        await repository.delete(req.body.id); // id deve ser igual tb na rota 'products-route'
         res.status(200).send({
-            message: 'Produto removido com sucesso'
+             message: 'Produto removido com sucesso'
         });
-    }).catch(e => {
-        res.status(400).send({
-            message: 'Error ao remover produto',
-            data: e
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha no processo de requisição',
+            data: error
         });
-    });
+    }
 };
+/* jshint ignore:end */
