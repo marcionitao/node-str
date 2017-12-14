@@ -1,8 +1,5 @@
 'use strict';
 /* jshint ignore:start */
-// para podermos usar o Model
-const mongoose = require('mongoose');
-const Product = mongoose.model('Product');
 
 // para usar o repository
 const repository = require('../repositories/product-repository');
