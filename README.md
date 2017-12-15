@@ -7,4 +7,7 @@ API developed in Node to work as GET, POST, PUT and DEL server side
 - Express
 - MongoDB
 - Mongoose
+
+- MD5 - https://www.npmjs.com/package/md5
 - mLAB - https://mlab.com/
+- SendGrid - https://sendgrid.com/
