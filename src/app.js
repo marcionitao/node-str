@@ -4,15 +4,16 @@ const express = require ('express');
 const bodyParser = require ('body-parser');
 const mongoose = require ('mongoose');
 
+const config = require ('./config.js');
+
 const app = express();
 const router = express.Router();
 
 // conecta base de dados
-// mongoose.connect('mongodb://balta:balta@ds044787.mlab.com:44787/ndstr');
-var promise = mongoose.connect('mongodb://balta:balta@ds044787.mlab.com:44787/ndstr', {
+mongoose.connect(config.connectionString);
+/*var promise = mongoose.connect(config, {
     useMongoClient: true,
-    /* other options */
-});
+});*/
 
 // carrega os Models
 const Product = require('./models/product');
