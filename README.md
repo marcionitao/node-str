@@ -1,4 +1,5 @@
 # Design application node (node-str)
+https://travis-ci.org/marcionitao/node-str.svg?branch=master
 
 API developed in Node to work as GET, POST, PUT and DEL server side
 
