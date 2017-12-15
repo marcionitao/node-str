@@ -3,6 +3,7 @@
 
 // para usar o repository
 const repository = require('../repositories/customer-repository');
+const md5 = require('md5');
 
 // lista todos os produtos
 exports.get = async(req, res, next) => {
@@ -19,8 +20,14 @@ exports.get = async(req, res, next) => {
 
 // salva
 exports.post = async(req, res, next) => {
+    
     try {
-        await repository.create(req.body);
+        // Ao enviar os dados para a DB, precisamos encriptar alguns dados com o MD5
+        await repository.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: md5(req.body.password + global.SALT_KEY) // config.js
+        });
         res.status(201).send({
             message: 'Produto adicionado com sucesso'
         });
