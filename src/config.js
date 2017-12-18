@@ -3,6 +3,6 @@ global.EMAIL_TMPL = 'Olá, <strong>{0}</strong>, seja bem vindo a Node Store!';
 
 module.exports = {
     connectionString: 'mongodb://balta:balta@ds044787.mlab.com:44787/ndstr', // mlab
-    sendgridKey: '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', // sendgrid
+    sendgridKey: '', 
     constainerConnectionString: 'TBO'
 };

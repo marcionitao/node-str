@@ -5,7 +5,7 @@
 const repository = require('../repositories/customer-repository');
 const md5 = require('md5');
 
-const emailService = require('../service/email-service');
+// const emailService = require('../service/email-service');
 
 // lista todos os produtos
 exports.get = async(req, res, next) => {
@@ -32,7 +32,7 @@ exports.post = async(req, res, next) => {
         });
 
         // configuração para o envio automatico de email de confirmação de registo
-        emailService.send(req.body.email, 'Bem vindo ao Node Store', global.EMAIL_TMPL.replace('{0}',req.body.name)); // config.js
+       //  emailService.send(req.body.email, 'Bem vindo ao Node Store', global.EMAIL_TMPL.replace('{0}',req.body.name)); // config.js
         
         res.status(201).send({
             message: 'Produto adicionado com sucesso'
