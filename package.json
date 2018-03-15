@@ -2,9 +2,9 @@
   "name": "node-str",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "/bin/server.js"
+    "start": "node ./bin/server.js"
   },
   "keywords": [],
   "author": "",
