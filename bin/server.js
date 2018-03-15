@@ -4,12 +4,17 @@ const app = require('../src/app');
 const http = require('http');
 const debug = require('debug')('nodestr:server');
 
+const hostname = '0.0.0.0'; // openshift serve
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port);
+// add hostname to Runing in Openshift serve
+server.listen(port, hostname, () => {
+  console.log(`serve runnig at http://${hostname}:${port}/`);
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 console.log('API rodando no port: ' + port);
